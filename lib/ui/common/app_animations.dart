@@ -1,5 +1,3 @@
-
-
 class AppAnimations {
   // Images
   static const String onBoarding = "assets/animations/on_boarding.json";

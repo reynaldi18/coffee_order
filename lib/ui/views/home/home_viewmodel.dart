@@ -1,17 +1,38 @@
-import 'package:coffee_order_app/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
+
+import '../../../models/category.dart';
+import '../../../models/product.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  List<Product> products = [];
+  List<Category> categories = listCategory;
+  int categoryId = 1;
 
-  String get counterLabel => 'Counter is: $_counter';
+  Future runStartupLogic() async {
+    setBusy(true);
+    await Future.delayed(const Duration(seconds: 2));
+    setProductData();
+  }
 
-  int _counter = 0;
+  void setProductData() {
+    products = listProduct;
+    if (categoryId != 1) {
+      products = products
+          .where((product) => product.categoryId == categoryId)
+          .toList();
+    } else {
+      products = listProduct;
+    }
+    notifyListeners();
+    setBusy(false);
+  }
 
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  Future<void> setCategory(Category data) async {
+    for (var element in categories) {
+      element.isSelected = false;
+    }
+    categoryId = data.id;
+    setProductData();
+    notifyListeners();
   }
 }

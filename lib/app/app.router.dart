@@ -5,20 +5,18 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:coffee_order_app/ui/views/home/home_view.dart' as _i2;
-import 'package:coffee_order_app/ui/views/login/login_view.dart' as _i5;
+import 'package:coffee_order_app/ui/views/login/login_view.dart' as _i4;
+import 'package:coffee_order_app/ui/views/main/main_view.dart' as _i6;
 import 'package:coffee_order_app/ui/views/on_boarding/on_boarding_view.dart'
-    as _i4;
-import 'package:coffee_order_app/ui/views/startup/startup_view.dart' as _i3;
-import 'package:coffee_order_app/ui/views/welcome/welcome_view.dart' as _i6;
+    as _i3;
+import 'package:coffee_order_app/ui/views/startup/startup_view.dart' as _i2;
+import 'package:coffee_order_app/ui/views/welcome/welcome_view.dart' as _i5;
 import 'package:flutter/material.dart' as _i7;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i8;
 
 class Routes {
-  static const homeView = '/home-view';
-
   static const startupView = '/startup-view';
 
   static const onBoardingView = '/on-boarding-view';
@@ -27,70 +25,72 @@ class Routes {
 
   static const welcomeView = '/welcome-view';
 
+  static const mainView = '/main-view';
+
   static const all = <String>{
-    homeView,
     startupView,
     onBoardingView,
     loginView,
     welcomeView,
+    mainView,
   };
 }
 
 class StackedRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(
-      Routes.homeView,
-      page: _i2.HomeView,
-    ),
-    _i1.RouteDef(
       Routes.startupView,
-      page: _i3.StartupView,
+      page: _i2.StartupView,
     ),
     _i1.RouteDef(
       Routes.onBoardingView,
-      page: _i4.OnBoardingView,
+      page: _i3.OnBoardingView,
     ),
     _i1.RouteDef(
       Routes.loginView,
-      page: _i5.LoginView,
+      page: _i4.LoginView,
     ),
     _i1.RouteDef(
       Routes.welcomeView,
-      page: _i6.WelcomeView,
+      page: _i5.WelcomeView,
+    ),
+    _i1.RouteDef(
+      Routes.mainView,
+      page: _i6.MainView,
     ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
-    _i2.HomeView: (data) {
+    _i2.StartupView: (data) {
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i2.HomeView(),
+        builder: (context) => const _i2.StartupView(),
         settings: data,
       );
     },
-    _i3.StartupView: (data) {
+    _i3.OnBoardingView: (data) {
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i3.StartupView(),
+        builder: (context) => const _i3.OnBoardingView(),
         settings: data,
       );
     },
-    _i4.OnBoardingView: (data) {
-      return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i4.OnBoardingView(),
-        settings: data,
-      );
-    },
-    _i5.LoginView: (data) {
+    _i4.LoginView: (data) {
       final args = data.getArgs<LoginViewArguments>(
         orElse: () => const LoginViewArguments(),
       );
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => _i5.LoginView(key: args.key),
+        builder: (context) => _i4.LoginView(key: args.key),
         settings: data,
       );
     },
-    _i6.WelcomeView: (data) {
+    _i5.WelcomeView: (data) {
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i6.WelcomeView(),
+        builder: (context) => const _i5.WelcomeView(),
+        settings: data,
+      );
+    },
+    _i6.MainView: (data) {
+      return _i7.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i6.MainView(),
         settings: data,
       );
     },
@@ -125,20 +125,6 @@ class LoginViewArguments {
 }
 
 extension NavigatorStateExtension on _i8.NavigationService {
-  Future<dynamic> navigateToHomeView([
-    int? routerId,
-    bool preventDuplicates = true,
-    Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-        transition,
-  ]) async {
-    return navigateTo<dynamic>(Routes.homeView,
-        id: routerId,
-        preventDuplicates: preventDuplicates,
-        parameters: parameters,
-        transition: transition);
-  }
-
   Future<dynamic> navigateToStartupView([
     int? routerId,
     bool preventDuplicates = true,
@@ -197,14 +183,14 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithHomeView([
+  Future<dynamic> navigateToMainView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.homeView,
+    return navigateTo<dynamic>(Routes.mainView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -263,6 +249,20 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.welcomeView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithMainView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.mainView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

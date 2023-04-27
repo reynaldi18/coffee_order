@@ -1,8 +1,14 @@
+import 'package:coffee_order_app/ui/common/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:stacked/stacked.dart';
-import 'package:coffee_order_app/ui/common/app_colors.dart';
-import 'package:coffee_order_app/helpers/ui_helpers.dart';
 
+import '../../common/app_colors.dart';
+import '../../common/app_dimens.dart';
+import '../../common/app_strings.dart';
+import '../../widgets/item_product.dart';
+import '../../widgets/shimmer_item_product.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
@@ -15,39 +21,101 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Text(
+              AppStrings.labelHome,
+              style: blackBoldTextStyle.copyWith(
+                fontSize: AppDimens.textXXL,
+              ),
             ),
           ),
-        ),
+          SizedBox(
+            height: 40.0,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: viewModel.categories.length,
+                itemBuilder: (context, index) {
+                  var item = viewModel.categories[index];
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      left: index == 0 ? 32.0 : 0.0,
+                      right: 14.0,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        viewModel.setCategory(item);
+                        item.isSelected = true;
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: item.isSelected
+                              ? AppColors.primary
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18.0,
+                            vertical: 8.0,
+                          ),
+                          child: Center(
+                            child: Text(
+                              item.title,
+                              style: whiteRegularTextStyle.copyWith(
+                                  fontSize: AppDimens.bodySmall,
+                                  color: item.isSelected
+                                      ? Colors.white
+                                      : Colors.black.withOpacity(0.53)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 32,
+                vertical: 24.0,
+              ),
+              child: viewModel.isBusy
+                  ? const ShimmerItemProduct()
+                  : GridView.custom(
+                      gridDelegate: SliverQuiltedGridDelegate(
+                        crossAxisCount: 4,
+                        mainAxisSpacing: 20,
+                        crossAxisSpacing: 14,
+                        repeatPattern: QuiltedGridRepeatPattern.inverted,
+                        pattern: const [
+                          QuiltedGridTile(3, 2),
+                          QuiltedGridTile(2, 2),
+                        ],
+                      ),
+                      childrenDelegate: SliverChildBuilderDelegate(
+                        childCount: viewModel.products.length,
+                        (context, index) {
+                          final product = viewModel.products[index];
+                          return ItemProduct(
+                            product: product,
+                          );
+                        },
+                      ),
+                    ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -57,4 +125,8 @@ class HomeView extends StackedView<HomeViewModel> {
     BuildContext context,
   ) =>
       HomeViewModel();
+
+  @override
+  void onViewModelReady(HomeViewModel viewModel) => SchedulerBinding.instance
+      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
 }

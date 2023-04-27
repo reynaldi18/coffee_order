@@ -22,7 +22,7 @@ class WelcomeView extends StackedView<WelcomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.whiteBackground,
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 30.0,
@@ -67,7 +67,7 @@ class WelcomeView extends StackedView<WelcomeViewModel> {
             ),
             verticalSpace(60.0),
             Button(
-              onPressed: () {},
+              onPressed: () => viewModel.showDashboard(),
               loadingColor: Colors.white,
               borderRadius: BorderRadius.circular(61.0),
               color: AppColors.primary,

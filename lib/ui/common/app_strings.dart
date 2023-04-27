@@ -5,6 +5,7 @@ class AppStrings {
   static const String labelLogin = 'Login back\nto your account.';
   static const String labelForgotPassword = 'Forget your password?';
   static const String labelWelcome = 'Welcome back!\nEnjoy your coffee time.';
+  static const String labelHome = 'Great Coffee\nAnytime, Anywhere!';
 
   // Hint
   static const String hintEmail = 'Email address';

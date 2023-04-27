@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 
 class AppDimens {
   /// Font sizes
@@ -33,6 +33,8 @@ class AppDimens {
 
   static const double radius = 12.0;
   static const double radiusField = 61.0;
+  static const double radiusSmall = 6.0;
+  static const double iconNav = 24.0;
 
   const AppDimens._();
 }

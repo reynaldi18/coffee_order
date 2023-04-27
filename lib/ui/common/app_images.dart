@@ -16,6 +16,10 @@ class AppImages {
   static const String iconCart = "assets/icons/ic_cart.svg";
   static const String iconLocation = "assets/icons/ic_location.svg";
   static const String iconUser = "assets/icons/ic_user.svg";
+  static const String iconSetting = "assets/icons/ic_setting.svg";
+  static const String iconMenu = "assets/icons/ic_menu.svg";
+  static const String iconHeart = "assets/icons/ic_heart.svg";
+  static const String iconHeartBorder = "assets/icons/ic_heart_border.svg";
 
   const AppImages._();
 }

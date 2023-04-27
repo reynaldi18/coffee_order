@@ -10,13 +10,5 @@ void main() {
   group('HomeViewmodelTest -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
-
-    group('incrementCounter -', () {
-      test('When called once should return  Counter is: 1', () {
-        final model = _getModel();
-        model.incrementCounter();
-        expect(model.counterLabel, 'Counter is: 1');
-      });
-    });
   });
 }

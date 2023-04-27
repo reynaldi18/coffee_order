@@ -23,7 +23,7 @@ class OnBoardingView extends StackedView<OnBoardingViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.whiteBackground,
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 30.0,

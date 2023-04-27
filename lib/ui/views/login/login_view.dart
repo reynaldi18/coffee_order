@@ -32,7 +32,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.whiteBackground,
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 30.0,
