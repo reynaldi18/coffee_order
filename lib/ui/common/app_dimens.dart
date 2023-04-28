@@ -1,5 +1,3 @@
-
-
 class AppDimens {
   /// Font sizes
   static const double textXXS = 4.0;

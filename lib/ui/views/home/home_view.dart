@@ -21,6 +21,7 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      backgroundColor: AppColors.whiteBackground,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -51,7 +52,7 @@ class HomeView extends StackedView<HomeViewModel> {
                     ),
                     child: GestureDetector(
                       onTap: () {
-                        viewModel.setCategory(item);
+                        viewModel.setCategory(item.id);
                         item.isSelected = true;
                       },
                       child: Container(
@@ -85,34 +86,38 @@ class HomeView extends StackedView<HomeViewModel> {
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 32,
-                vertical: 24.0,
+            child: RefreshIndicator(
+              onRefresh: () => viewModel.runStartupLogic(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 24.0,
+                ),
+                child: viewModel.isBusy
+                    ? const ShimmerItemProduct()
+                    : GridView.custom(
+                        gridDelegate: SliverQuiltedGridDelegate(
+                          crossAxisCount: 4,
+                          mainAxisSpacing: 20,
+                          crossAxisSpacing: 14,
+                          repeatPattern: QuiltedGridRepeatPattern.inverted,
+                          pattern: const [
+                            QuiltedGridTile(3, 2),
+                            QuiltedGridTile(2, 2),
+                          ],
+                        ),
+                        childrenDelegate: SliverChildBuilderDelegate(
+                          childCount: viewModel.products.length,
+                          (context, index) {
+                            final product = viewModel.products[index];
+                            return GestureDetector(
+                              onTap: () => viewModel.showProduct(product),
+                              child: ItemProduct(product: product),
+                            );
+                          },
+                        ),
+                      ),
               ),
-              child: viewModel.isBusy
-                  ? const ShimmerItemProduct()
-                  : GridView.custom(
-                      gridDelegate: SliverQuiltedGridDelegate(
-                        crossAxisCount: 4,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 14,
-                        repeatPattern: QuiltedGridRepeatPattern.inverted,
-                        pattern: const [
-                          QuiltedGridTile(3, 2),
-                          QuiltedGridTile(2, 2),
-                        ],
-                      ),
-                      childrenDelegate: SliverChildBuilderDelegate(
-                        childCount: viewModel.products.length,
-                        (context, index) {
-                          final product = viewModel.products[index];
-                          return ItemProduct(
-                            product: product,
-                          );
-                        },
-                      ),
-                    ),
             ),
           ),
         ],

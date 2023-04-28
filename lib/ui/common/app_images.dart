@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class AppImages {
   // Images
   static const String logo = "assets/images/logo.png";
@@ -20,6 +18,10 @@ class AppImages {
   static const String iconMenu = "assets/icons/ic_menu.svg";
   static const String iconHeart = "assets/icons/ic_heart.svg";
   static const String iconHeartBorder = "assets/icons/ic_heart_border.svg";
+  static const String iconSizeShort = "assets/icons/ic_size_short.svg";
+  static const String iconSizeTall = "assets/icons/ic_size_tall.svg";
+  static const String iconSizeGrande = "assets/icons/ic_size_grande.svg";
+  static const String iconSizeVenti = "assets/icons/ic_size_venti.svg";
 
   const AppImages._();
 }

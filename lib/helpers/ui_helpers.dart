@@ -34,6 +34,12 @@ Widget horizontalSpace(double width) => SizedBox(width: width);
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 
+double screenHeightPercentage(BuildContext context, {double percentage = 1}) =>
+    screenHeight(context) * percentage;
+
+double screenWidthPercentage(BuildContext context, {double percentage = 1}) =>
+    screenWidth(context) * percentage;
+
 double screenHeightFraction(BuildContext context,
         {int dividedBy = 1, double offsetBy = 0, double max = 3000}) =>
     min((screenHeight(context) - offsetBy) / dividedBy, max);

@@ -21,6 +21,7 @@ class MainView extends StackedView<MainViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      backgroundColor: AppColors.whiteBackground,
       appBar: AppBar(
         backgroundColor: AppColors.whiteBackground,
         centerTitle: true,

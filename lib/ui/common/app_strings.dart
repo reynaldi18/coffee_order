@@ -6,6 +6,7 @@ class AppStrings {
   static const String labelForgotPassword = 'Forget your password?';
   static const String labelWelcome = 'Welcome back!\nEnjoy your coffee time.';
   static const String labelHome = 'Great Coffee\nAnytime, Anywhere!';
+  static const String labelSelectSize = 'Select Size';
 
   // Hint
   static const String hintEmail = 'Email address';
@@ -23,6 +24,7 @@ class AppStrings {
   static const String actionSignUp = 'Sign Up';
   static const String actionLogin = 'Login';
   static const String actionOrder = 'Let’s Order';
+  static const String actionAddToCart = 'Add to cart';
 
   AppStrings._();
 }

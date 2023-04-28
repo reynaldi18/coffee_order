@@ -9,7 +9,7 @@ import '../common/app_images.dart';
 import '../common/app_styles.dart';
 import 'shimmer_basic.dart';
 
-class ItemProduct extends StatelessWidget {
+class ItemProduct extends StatefulWidget {
   final Product product;
 
   const ItemProduct({
@@ -17,6 +17,11 @@ class ItemProduct extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
+  @override
+  State<ItemProduct> createState() => _ItemProductState();
+}
+
+class _ItemProductState extends State<ItemProduct> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,23 +32,26 @@ class ItemProduct extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(22.0),
-                child: Image.network(
-                  product.image,
-                  width: screenWidth(context),
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return ShimmerBasic(
-                      height: screenHeight(context),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) => Container(
+                child: Hero(
+                  tag: widget.product.id,
+                  child: Image.network(
+                    widget.product.image,
                     width: screenWidth(context),
-                    color: AppColors.primary.withOpacity(0.15),
-                    child: const Icon(
-                      Icons.error,
-                      size: 24.0,
-                      color: AppColors.primary,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return ShimmerBasic(
+                        height: screenHeight(context),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) => Container(
+                      width: screenWidth(context),
+                      color: AppColors.primary.withOpacity(0.15),
+                      child: const Icon(
+                        Icons.error,
+                        size: 24.0,
+                        color: AppColors.primary,
+                      ),
                     ),
                   ),
                 ),
@@ -54,13 +62,13 @@ class ItemProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  product.name,
+                  widget.product.name,
                   style: blackSemiBoldTextStyle.copyWith(
                     fontSize: AppDimens.bodySmall,
                   ),
                 ),
                 Text(
-                  '\$${product.price}',
+                  '\$${widget.product.price}',
                   style: blackSemiBoldTextStyle.copyWith(
                     fontSize: AppDimens.bodySmall,
                   ),
@@ -69,7 +77,7 @@ class ItemProduct extends StatelessWidget {
             ),
             verticalSpace(8.0),
             Text(
-              product.desc,
+              widget.product.desc,
               style: blackRegularTextStyle.copyWith(
                 fontSize: AppDimens.caption,
                 color: Colors.black.withOpacity(0.6),
@@ -82,17 +90,37 @@ class ItemProduct extends StatelessWidget {
         Positioned(
           top: 10,
           left: 10,
-          child: Container(
-            height: 32.0,
-            width: 32.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
-              color: Colors.white.withOpacity(0.46),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(
-                AppImages.iconHeartBorder,
+          child: InkWell(
+            onTap: () {
+              setState(() {
+                widget.product.isFavorite = !widget.product.isFavorite;
+              });
+            },
+            child: Container(
+              height: 32.0,
+              width: 32.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16.0),
+                color: Colors.white.withOpacity(0.46),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder:
+                      (Widget child, Animation<double> animation) {
+                    return ScaleTransition(
+                      scale: animation,
+                      child: child,
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    widget.product.isFavorite
+                        ? AppImages.iconHeart
+                        : AppImages.iconHeartBorder,
+                    key: ValueKey<bool>(widget.product.isFavorite),
+                  ),
+                ),
               ),
             ),
           ),
