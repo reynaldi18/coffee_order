@@ -1,17 +1,19 @@
-# stacked_app
+# Coffee Order App
 
-A new Flutter project.
+Hi everyone, I'm back and still using Flutter trying to implement a perfect design 🚀
 
-## Getting Started
+- Framework: Flutter
+- Programming Language: Dart
+- Design Pattern: MVVM (using stacked)
+-------------------------------------------
+- [Stacked Documentation](https://stacked.filledstacks.com/)
+- [Design reference](https://www.instagram.com/p/Cc-KmatjuuH/?utm_source=ig_web_copy_link%3F)
+- [Design by](https://www.instagram.com/callamirh/)
 
-This project is a starting point for a Flutter application.
+## Support me:
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/reynaldi07)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+## Connect with me:
+<a href = "https://www.linkedin.com/in/reynaldi-pamungkas-882b72141/"><img src="https://img.icons8.com/fluent/48/000000/linkedin.png"/></a>
+<a href = "https://www.instagram.com/reynaldi18/"><img src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/></a>
